@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import * as Gesture from 'angular-hammer';
+import * as Hammer from 'hammerjs';
 
 @Directive({
   selector: '[touch-events]'
@@ -26,11 +26,9 @@ export class TouchEventsDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.gestureListener = new Gesture(this.el.nativeElement, {
+    this.gestureListener = new Hammer(this.el.nativeElement, {
       domEvents: false,
-      enable: true,
-      direction: this.direction,
-      threshold: this.threshold,
+      enable: true
     });
     this.gestureListener.listen();
     this.gestureListener.on('pinch', (event) => {
