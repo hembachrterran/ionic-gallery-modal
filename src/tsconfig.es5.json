@@ -4,7 +4,6 @@
     "module": "es2015",
     "baseUrl": ".",
     "stripInternal": false,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "outDir": "../build",
