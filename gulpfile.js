@@ -2,11 +2,13 @@
 var gulp = require('gulp'),
   path = require('path'),
   ngc = require('@angular/compiler-cli/src/main').main,
-  rollup = require('gulp-rollup'),
+  commonjs = require('@rollup/plugin-commonjs'),
   rename = require('gulp-rename'),
   del = require('del'),
-  runSequence = require('run-sequence'),
-  inlineResources = require('./tools/gulp/inline-resources');
+  runSequence = require('gulp4-run-sequence'),
+  inlineResources = require('./tools/gulp/inline-resources'),
+  gru2 = require('gulp-rollup-2'),
+  resolve = require("@rollup/plugin-node-resolve");
 
 const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
@@ -68,31 +70,25 @@ gulp.task('ngc', function () {
 gulp.task('rollup:fesm', function () {
   return gulp.src(`${buildFolder}/**/*.js`)
   // transform the files here.
-    .pipe(rollup({
-
-      // Bundle's entry point
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-      entry: `${buildFolder}/index.js`,
-
-      // Allow mixing of hypothetical and actual files. "Actual" files can be files
-      // accessed by Rollup or produced by plugins further down the chain.
-      // This prevents errors like: 'path/file' does not exist in the hypothetical file system
-      // when subdirectories are used in the `src` directory.
-      allowRealFiles: true,
-
-      // A list of IDs of modules that should remain external to the bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
-      external: [
-        '@angular/core',
-        '@angular/common',
-        '@ionic-angular',
-        'rxjs/Subject',
-      ],
-
-      // Format of generated bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-      format: 'es'
-    }))
+    .pipe(gru2.rollup(
+      {
+        input: `${buildFolder}/index.js`,
+        cache: true,
+        plugins: [
+          commonjs({
+            include: 'node_modules/rxjs/**',
+          }),
+          resolve.nodeResolve({
+            jsnext: true,
+            module: true
+          })],
+        output: [
+          {
+                file: 'ionic-gallery-modal.js',
+                format: 'es'
+          },
+     ]}
+    ))
     .pipe(gulp.dest(distFolder));
 });
 
@@ -103,46 +99,30 @@ gulp.task('rollup:fesm', function () {
 gulp.task('rollup:umd', function () {
   return gulp.src(`${buildFolder}/**/*.js`)
   // transform the files here.
-    .pipe(rollup({
-
-      // Bundle's entry point
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-      entry: `${buildFolder}/index.js`,
-
-      // Allow mixing of hypothetical and actual files. "Actual" files can be files
-      // accessed by Rollup or produced by plugins further down the chain.
-      // This prevents errors like: 'path/file' does not exist in the hypothetical file system
-      // when subdirectories are used in the `src` directory.
-      allowRealFiles: true,
-
-      // A list of IDs of modules that should remain external to the bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
-      external: [
-        '@angular/core',
-        '@angular/common',
-        '@ionic-angular',
-        'rxjs/Subject',
-      ],
-
-      // Format of generated bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-      format: 'umd',
-
-      // Export mode to use
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
-      exports: 'named',
-
-      // The name to use for the module for UMD/IIFE bundles
-      // (required for bundles with exports)
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
-      name: 'ionic-gallery-modal',
-
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
-      globals: {
-        typescript: 'ts'
-      }
-
-    }))
+    .pipe(gru2.rollup(
+      {
+        input: `${buildFolder}/index.js`,
+        cache: true,
+        plugins: [
+            commonjs({
+              include: 'node_modules/rxjs/**',
+            }),
+            resolve.nodeResolve({
+              jsnext: true,
+              module: true
+            })],
+        output: [
+          {
+                file: 'ionic-gallery-modal.umd.js',
+                name: 'ionic-gallery-modal',
+                format: 'umd',
+                exports: 'named',
+                globals: {
+                  typescript: 'ts'
+                }
+          },
+     ]}
+    ))
     .pipe(rename('ionic-gallery-modal.umd.js'))
     .pipe(gulp.dest(distFolder));
 });
@@ -187,7 +167,7 @@ gulp.task('clean:build', function () {
   return deleteFolders([buildFolder]);
 });
 
-gulp.task('compile', function () {
+gulp.task('compile', async function () {
   runSequence(
     'clean:dist',
     'copy:source',
@@ -217,12 +197,11 @@ gulp.task('watch', function () {
   gulp.watch(`${srcFolder}/**/*`, ['compile']);
 });
 
-gulp.task('clean', ['clean:dist', 'clean:tmp', 'clean:build']);
+gulp.task('clean', gulp.series('clean:dist', 'clean:tmp', 'clean:build'));
 
-gulp.task('build', ['clean', 'compile']);
-gulp.task('build:watch', ['build', 'watch']);
-gulp.task('default', ['build:watch']);
-
+gulp.task('build', gulp.series('clean', 'compile'));
+gulp.task('build:watch', gulp.series('build', 'watch'));
+gulp.task('default', gulp.series('build:watch'));
 /**
  * Deletes the specified folder
  */

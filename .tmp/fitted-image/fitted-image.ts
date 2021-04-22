@@ -3,8 +3,8 @@ import { Subject } from 'rxjs';;
 
 @Component({
   selector: 'fitted-image',
-  templateUrl: './fitted-image.html',
-  styleUrls: ['./fitted-image.scss'],
+  template: "<div class=\"fitted-image\"> <ion-spinner [hidden]=\"!loading\"></ion-spinner> <img [src]=\"photo.url\" [ngStyle]=\"imageStyle\" (load)=\"imageLoad($event)\" [hidden]=\"loading\" alt=\"\" /> </div> ",
+  styles: [":host { display: inline-block; } :host .fitted-image { display: inline-block; position: relative; transform-origin: left top; background-repeat: no-repeat; background-position: center center; background-size: contain; text-align: left; vertical-align: top; } :host .fitted-image ion-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); } :host .fitted-image img { display: inline-block; min-width: 0; max-width: none; transform-origin: left top; vertical-align: top; pointer-events: none; } "],
 })
 export class FittedImage implements OnInit, OnDestroy {
   @Input() photo: any;
