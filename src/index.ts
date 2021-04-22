@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule } from '@ionic/angular';
 
 import { FittedImage } from './fitted-image/fitted-image';
 import { ZoomableImage } from './zoomable-image/zoomable-image';

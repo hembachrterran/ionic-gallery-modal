@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { ViewController, NavParams, Slides, Platform } from 'ionic-angular';
+import { ViewController, NavParams, Slides, Platform } from '@ionic/angular';
 import { Photo } from '../interfaces/photo-interface';
 import { Subject } from 'rxjs/Subject';
 

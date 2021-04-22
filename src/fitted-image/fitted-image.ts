@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { ViewController, Scroll } from 'ionic-angular';
+import { ViewController, Scroll } from '@ionic/angular';
 import { Subject } from 'rxjs/Subject';
 
 @Component({

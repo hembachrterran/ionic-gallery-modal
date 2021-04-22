@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { Gesture } from 'ionic-angular';
+import { Gesture } from '@ionic/angular';
 
 
 @Directive({
