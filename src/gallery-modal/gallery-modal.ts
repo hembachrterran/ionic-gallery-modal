@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ModalController, NavParams, IonSlides, Platform } from '@ionic/angular';
 import { Photo } from '../interfaces/photo-interface';
-import { Subject } from 'rxjs';;
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'gallery-modal',
@@ -12,27 +12,27 @@ import { Subject } from 'rxjs';;
 export class GalleryModal implements OnInit {
   @ViewChild('slider') slider: IonSlides;
 
-  private initialImage: any;
+  public initialImage: any;
 
   public photos: Photo[];
-  private sliderDisabled: boolean = false;
-  private initialSlide: number = 0;
-  private currentSlide: number = 0;
-  private sliderLoaded: boolean = false;
-  private closeIcon: string = 'arrow-back';
-  private resizeTriggerer: Subject<any> = new Subject();
-  private slidesDragging: boolean = false;
-  private panUpDownRatio: number = 0;
-  private panUpDownDeltaY: number = 0;
-  private dismissed: boolean = false;
+  public sliderDisabled: boolean = false;
+  public initialSlide: number = 0;
+  public currentSlide: number = 0;
+  public sliderLoaded: boolean = false;
+  public closeIcon: string = 'arrow-back';
+  public resizeTriggerer: Subject<any> = new Subject();
+  public slidesDragging: boolean = false;
+  public panUpDownRatio: number = 0;
+  public panUpDownDeltaY: number = 0;
+  public dismissed: boolean = false;
 
-  private width: number = 0;
-  private height: number = 0;
+  public width: number = 0;
+  public height: number = 0;
 
   private slidesStyle: any = {
     visibility: 'hidden',
   };
-  private modalStyle: any = {
+  public modalStyle: any = {
     backgroundColor: 'rgba(0, 0, 0, 1)',
   };
 
@@ -60,7 +60,7 @@ export class GalleryModal implements OnInit {
     modal.dismiss();
   }
 
-  private resize(event) {
+  public resize(event) {
     if (this.slider)
       this.slider.update();
 
@@ -73,7 +73,7 @@ export class GalleryModal implements OnInit {
     });
   }
 
-  private orientationChange(event) {
+  public orientationChange(event) {
     // TODO: See if you can remove timeout
     window.setTimeout(() => {
       this.resize(event);

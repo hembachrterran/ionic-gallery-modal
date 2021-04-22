@@ -22,7 +22,6 @@
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ionic-gallery-modal.js",
     "flatModuleId": "ionic-gallery-modal",
-    "enableIvy": false,
     "annotateForClosureCompiler": false
   },
   "files": [

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
-import { Subject } from 'rxjs';;
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'zoomable-image',
@@ -57,8 +57,8 @@ export class ZoomableImage implements OnInit, OnDestroy {
     x: 0, y: 0,
   };
 
-  private containerStyle: any = {};
-  private imageStyle: any = {};
+  public containerStyle: any = {};
+  public imageStyle: any = {};
   private resizeSubscription: any;
 
   constructor() {
@@ -131,7 +131,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private pinchEvent(event) {
+   public pinchEvent(event) {
     let scale = this.scaleStart * event.scale;
 
     if (scale > this.maxScale) {
@@ -155,7 +155,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private pinchStartEvent(event) {
+   public pinchStartEvent(event) {
     this.scaleStart = this.scale;
     this.setCenter(event);
   }
@@ -165,7 +165,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private pinchEndEvent(event) {
+   public pinchEndEvent(event) {
     this.checkScroll();
 
     if (this.scale > this.maxScale) {
@@ -192,7 +192,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private doubleTapEvent(event) {
+   public doubleTapEvent(event) {
     this.setCenter(event);
 
     let scale = this.scale > 1 ? 1 : 2.5;
@@ -212,7 +212,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private panEvent(event) {
+   public panEvent(event) {
     // calculate center x,y since pan started
     const x = Math.max(Math.floor(this.panCenterStart.x + event.deltaX), 0);
     const y = Math.max(Math.floor(this.panCenterStart.y + event.deltaY), 0);

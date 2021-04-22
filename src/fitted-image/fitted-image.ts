@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';;
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'fitted-image',

@@ -8,11 +8,13 @@ import { GalleryModal } from './gallery-modal/gallery-modal';
 import { TouchEventsDirective } from './directives/touch-events';
 
 import { GalleryModalHammerConfig } from './overrides/gallery-modal-hammer-config';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule
   ],
   declarations: [
     FittedImage,
