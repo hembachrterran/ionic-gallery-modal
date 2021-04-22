@@ -1,7 +1,7 @@
 {
-  "name": "ionic-gallery-modal",
+  "name": "ionic-gallery-modal-fork-ionic-5",
   "version": "0.2.8",
-  "description": "Ionic Gallery Modal (to preview photos)",
+  "description": "Ionic Gallery Modal (to preview photos) Ionic 5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -72,6 +72,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikini/ionic-gallery-modal.git"
+    "url": "https://github.com/hembachrterran/ionic-gallery-modal.git"
   }
 }

@@ -1,9 +1,9 @@
 {
   "name": "ionic-gallery-modal-fork-ionic-5",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hembachrterran/ionic-gallery-modal"
+    "url": "https://github.com/hembachrterran/ionic-gallery-modal.git"
   },
   "author": {
     "name": "Ciprian Mocanu",
