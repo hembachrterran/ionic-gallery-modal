@@ -18,11 +18,12 @@
     "types": []
   },
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ionic-gallery-modal.js",
-    "flatModuleId": "ionic-gallery-modal"
+    "flatModuleId": "ionic-gallery-modal",
+    "enableIvy": false,
+    "annotateForClosureCompiler": false
   },
   "files": [
     "./index.ts"

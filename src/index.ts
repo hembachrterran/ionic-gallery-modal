@@ -12,11 +12,7 @@ import { GalleryModalHammerConfig } from './overrides/gallery-modal-hammer-confi
 
 @NgModule({
   imports: [
-    CommonModule,
-    TouchEventsDirective,
-    FittedImage,
-    ZoomableImage,
-    GalleryModal,
+    CommonModule
   ],
   declarations: [
     FittedImage,
@@ -29,10 +25,19 @@ import { GalleryModalHammerConfig } from './overrides/gallery-modal-hammer-confi
     ZoomableImage,
     GalleryModal,
     TouchEventsDirective,
+    CommonModule
   ],
   entryComponents: [
     GalleryModal,
   ],
+  providers:
+  [
+    CommonModule,
+    TouchEventsDirective,
+    FittedImage,
+    ZoomableImage,
+    GalleryModal
+  ]
 })
 export class GalleryModalModule {}
 export { FittedImage, ZoomableImage, GalleryModal, GalleryModalHammerConfig, TouchEventsDirective }

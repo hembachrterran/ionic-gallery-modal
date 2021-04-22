@@ -1,6 +1,6 @@
 {
   "name": "ionic-gallery-modal-fork-ionic-5",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Ionic Gallery Modal (to preview photos) Ionic 5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -38,7 +38,8 @@
     "gulp4-run-sequence": "^1.0.1",
     "hammerjs": "^2.0.8",
     "rollup": "^2.45.2",
-    "rxjs-compat": "^6.6.7"
+    "rxjs-compat": "^6.6.7",
+    "tsickle": "^0.39.1"
   },
   "devDependencies": {
     "@angular/common": "11.2.11",

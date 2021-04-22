@@ -1,6 +1,7 @@
 /* eslint-disable */
 var gulp = require('gulp'),
   path = require('path'),
+  ngFsUtils = require('@angular/compiler-cli/src/ngtsc/file_system'),
   ngc = require('@angular/compiler-cli/src/main').main,
   commonjs = require('@rollup/plugin-commonjs'),
   rename = require('gulp-rename'),
@@ -50,15 +51,12 @@ gulp.task('inline-resources', function () {
  * 4. Run the Angular compiler, ngc, on the /.tmp folder. This will output all
  *    compiled modules to the /build folder.
  */
-gulp.task('ngc', function () {
-  return ngc({
-    project: `${tmpFolder}/tsconfig.es5.json`
-  })
-    .then((exitCode) => {
-      if (exitCode === 1) {
-        // This error is caught in the 'compile' task by the runSequence method callback
-        // so that when ngc fails to compile, the whole compile process stops running
-        throw new Error('ngc compilation failed');
+gulp.task('ngc', async function () {
+  ngFsUtils.setFileSystem(new ngFsUtils.NodeJSFileSystem());
+  return ngc([
+    '-p', `${tmpFolder}/tsconfig.es5.json`], (error) => {
+      if (error) {
+        throw new Error('ngc compilation failed: ' + error);
       }
     });
 });
@@ -82,6 +80,7 @@ gulp.task('rollup:fesm', function () {
             jsnext: true,
             module: true
           })],
+          inlineDynamicImports:true,
         output: [
           {
                 file: 'ionic-gallery-modal.js',
@@ -111,6 +110,7 @@ gulp.task('rollup:umd', function () {
               jsnext: true,
               module: true
             })],
+            inlineDynamicImports:true,
         output: [
           {
                 file: 'ionic-gallery-modal.umd.js',
