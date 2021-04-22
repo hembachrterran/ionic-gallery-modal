@@ -85,7 +85,7 @@ gulp.task('rollup:fesm', function () {
       external: [
         '@angular/core',
         '@angular/common',
-        '@ionic-angular',
+        '@ionic/angular',
         'rxjs/Subject',
       ],
 
@@ -120,7 +120,7 @@ gulp.task('rollup:umd', function () {
       external: [
         '@angular/core',
         '@angular/common',
-        '@ionic-angular',
+        '@ionic/angular',
         'rxjs/Subject',
       ],
 

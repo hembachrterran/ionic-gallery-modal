@@ -63,7 +63,7 @@ providers: [
 To open the module just use the [Ionic ModalController](https://ionicframework.com/docs/v2/api/components/modal/ModalController/)
 
 ```
-import { ModalController } from '@ionic-angular';
+import { ModalController } from '@ionic/angular';
 import { GalleryModal } from 'ionic-gallery-modal';
 ```
 
