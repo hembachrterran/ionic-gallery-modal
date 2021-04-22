@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { ViewController, NavParams, Slides, Platform } from '@ionic/angular';
+import { ModalController, NavParams, IonSlides, Platform } from '@ionic/angular';
 import { Photo } from '../interfaces/photo-interface';
 import { Subject } from 'rxjs/Subject';
 
@@ -10,7 +10,7 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./gallery-modal.scss'],
 })
 export class GalleryModal implements OnInit {
-  @ViewChild('slider') slider: Slides;
+  @ViewChild('slider') slider: IonSlides;
 
   private initialImage: any;
 
@@ -39,7 +39,7 @@ export class GalleryModal implements OnInit {
   private transitionDuration: string = '200ms';
   private transitionTimingFunction: string = 'cubic-bezier(0.33, 0.66, 0.66, 1)';
 
-  constructor(private viewCtrl: ViewController, params: NavParams, private element: ElementRef, private platform: Platform, private domSanitizer: DomSanitizer) {
+  constructor(private viewCtrl: ModalController, params: NavParams, private element: ElementRef, private platform: Platform, private domSanitizer: DomSanitizer) {
     this.photos = params.get('photos') || [];
     this.closeIcon = params.get('closeIcon') || 'arrow-back';
     this.initialSlide = params.get('initialSlide') || 0;
@@ -55,8 +55,9 @@ export class GalleryModal implements OnInit {
   /**
    * Closes the modal (when user click on CLOSE)
    */
-  public dismiss() {
-    this.viewCtrl.dismiss();
+  public async dismiss() {
+    const modal = await this.viewCtrl.getTop();
+    modal.dismiss();
   }
 
   private resize(event) {
@@ -93,9 +94,9 @@ export class GalleryModal implements OnInit {
    *
    * @param  {Event} event
    */
-  private disableScroll(event) {
+  private async disableScroll(event) {
     if (!this.sliderDisabled) {
-      this.currentSlide = this.slider.getActiveIndex();
+      this.currentSlide = await this.slider.getActiveIndex();
       this.sliderDisabled = true;
     }
   }

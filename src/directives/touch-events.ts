@@ -1,6 +1,5 @@
 import { Directive, ElementRef, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { Gesture } from '@ionic/angular';
-
+import * as Gesture from 'hammerjs';
 
 @Directive({
   selector: '[touch-events]'

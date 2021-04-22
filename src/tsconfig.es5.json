@@ -2,7 +2,6 @@
   "compilerOptions": {
     "declaration": true,
     "module": "es2015",
-    "target": "es5",
     "baseUrl": ".",
     "stripInternal": false,
     "emitDecoratorMetadata": true,
@@ -10,8 +9,9 @@
     "moduleResolution": "node",
     "outDir": "../build",
     "rootDir": ".",
+    "target": "es2015",
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
     ],
     "skipLibCheck": true,
