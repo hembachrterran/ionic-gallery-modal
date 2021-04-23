@@ -31,14 +31,6 @@ import { IonicModule } from '@ionic/angular';
   ],
   entryComponents: [
     GalleryModal,
-  ],
-  providers:
-  [
-    CommonModule,
-    TouchEventsDirective,
-    FittedImage,
-    ZoomableImage,
-    GalleryModal
   ]
 })
 export class GalleryModalModule {}

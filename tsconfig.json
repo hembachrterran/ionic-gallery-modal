@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "rootDir": "./src",
+    "paths": { "@angular/*": [ "../node_modules/@angular/*" ] },
     "lib": [
       "es2015",
       "dom"
