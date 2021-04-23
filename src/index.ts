@@ -9,12 +9,17 @@ import { TouchEventsDirective } from './directives/touch-events';
 
 import { GalleryModalHammerConfig } from './overrides/gallery-modal-hammer-config';
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    RouterModule.forChild([{ path: '', component: TouchEventsDirective }]),
+    RouterModule.forChild([{ path: '', component: FittedImage }]),
+    RouterModule.forChild([{ path: '', component: ZoomableImage }]),
+    RouterModule.forChild([{ path: '', component: GalleryModal }])
   ],
   declarations: [
     FittedImage,
@@ -27,11 +32,10 @@ import { IonicModule } from '@ionic/angular';
     ZoomableImage,
     GalleryModal,
     TouchEventsDirective,
-    CommonModule
   ],
   entryComponents: [
     GalleryModal,
-  ]
+  ],
 })
 export class GalleryModalModule {}
 export { FittedImage, ZoomableImage, GalleryModal, GalleryModalHammerConfig, TouchEventsDirective }

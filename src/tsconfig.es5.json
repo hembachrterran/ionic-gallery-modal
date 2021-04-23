@@ -1,28 +1,30 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "module": "es2015",
-    "baseUrl": ".",
-    "stripInternal": false,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "module": "esnext",
     "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "baseUrl": ".",
     "outDir": "../build",
     "paths": { "@angular/*": [ "../node_modules/@angular/*" ] },
     "rootDir": ".",
-    "target": "es2015",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "skipLibCheck": true,
     "types": []
   },
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ionic-gallery-modal.js",
-    "flatModuleId": "ionic-gallery-modal",
-    "annotateForClosureCompiler": false
+    "annotateForClosureCompiler": false,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   },
   "files": [
     "./index.ts"

@@ -22,7 +22,7 @@
   <ion-slides class="slider"
     #slider
     *ngIf="photos.length"
-    [initialSlide]="initialSlide"
+    [options]="initialSlide"
     [ngStyle]="slidesStyle"
     touch-events
     (ionSlideDrag)="slidesDrag($event)"

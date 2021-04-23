@@ -22,7 +22,7 @@ export class TouchEventsDirective implements OnInit, OnDestroy {
   @Output() pancancel = new EventEmitter();
   @Output() doubletap = new EventEmitter();
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, ) {
   }
 
   ngOnInit() {

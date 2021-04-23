@@ -1,5 +1,5 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { Component, ViewChild, OnInit, ElementRef, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ModalController, NavParams, IonSlides, Platform } from '@ionic/angular';
 import { Photo } from '../interfaces/photo-interface';
 import { Subject } from 'rxjs';
@@ -10,16 +10,16 @@ import { Subject } from 'rxjs';
   styleUrls: ['./gallery-modal.scss'],
 })
 export class GalleryModal implements OnInit {
+  @Input() photos: Photo[] = [];
+  @Input() initialSlide: number = 0;
+  @Input() closeIcon: string = 'arrow-back';
   @ViewChild('slider') slider: IonSlides;
 
   public initialImage: any;
 
-  public photos: Photo[];
   public sliderDisabled: boolean = false;
-  public initialSlide: number = 0;
   public currentSlide: number = 0;
   public sliderLoaded: boolean = false;
-  public closeIcon: string = 'arrow-back';
   public resizeTriggerer: Subject<any> = new Subject();
   public slidesDragging: boolean = false;
   public panUpDownRatio: number = 0;
@@ -29,22 +29,23 @@ export class GalleryModal implements OnInit {
   public width: number = 0;
   public height: number = 0;
 
-  private slidesStyle: any = {
+  public slidesStyle: any = {
     visibility: 'hidden',
   };
   public modalStyle: any = {
     backgroundColor: 'rgba(0, 0, 0, 1)',
   };
+  public sliderOptions: any;
 
-  private transitionDuration: string = '200ms';
-  private transitionTimingFunction: string = 'cubic-bezier(0.33, 0.66, 0.66, 1)';
+  public transitionDuration: string = '200ms';
+  public transitionTimingFunction: string = 'cubic-bezier(0.33, 0.66, 0.66, 1)';
 
   constructor(private viewCtrl: ModalController, params: NavParams, private element: ElementRef, private platform: Platform, private domSanitizer: DomSanitizer) {
-    this.photos = params.get('photos') || [];
-    this.closeIcon = params.get('closeIcon') || 'arrow-back';
-    this.initialSlide = params.get('initialSlide') || 0;
 
     this.initialImage = this.photos[this.initialSlide] || {};
+    this.sliderOptions = {
+      initialSlide: this.initialSlide
+    };
   }
 
   public ngOnInit() {
@@ -83,7 +84,7 @@ export class GalleryModal implements OnInit {
   /**
    * When the modal has entered into view
    */
-  private ionViewDidEnter() {
+  public ionViewDidEnter() {
     this.resize(false);
     this.sliderLoaded = true;
     this.slidesStyle.visibility = 'visible';
@@ -94,7 +95,7 @@ export class GalleryModal implements OnInit {
    *
    * @param  {Event} event
    */
-  private async disableScroll(event) {
+  public async disableScroll(event) {
     if (!this.sliderDisabled) {
       this.currentSlide = await this.slider.getActiveIndex();
       this.sliderDisabled = true;
@@ -106,7 +107,7 @@ export class GalleryModal implements OnInit {
    *
    * @param  {Event} event
    */
-  private enableScroll(event) {
+  public enableScroll(event) {
     if (this.sliderDisabled) {
       this.slider.slideTo(this.currentSlide, 0, false);
       this.sliderDisabled = false;
@@ -118,7 +119,7 @@ export class GalleryModal implements OnInit {
    *
    * @param  {Event} event
    */
-  private slidesDrag(event) {
+  public slidesDrag(event) {
     this.slidesDragging = true;
   }
 
@@ -127,7 +128,7 @@ export class GalleryModal implements OnInit {
    *
    * @param  {Hammer.Event} event
    */
-  private panUpDownEvent(event) {
+  public panUpDownEvent(event) {
     event.preventDefault();
 
     if (this.slidesDragging || this.sliderDisabled) {
@@ -164,7 +165,7 @@ export class GalleryModal implements OnInit {
    *
    * @param  {Hammer.Event} event
    */
-  private panEndEvent(event) {
+  public panEndEvent(event) {
     this.slidesDragging = false;
 
     this.panUpDownRatio += event.velocityY * 30;
@@ -188,4 +189,11 @@ export class GalleryModal implements OnInit {
       this.modalStyle.backgroundColor = 'rgba(0, 0, 0, 1)';
     }
   }
+
+  closeModal() {
+    this.viewCtrl.dismiss({
+      'dismissed': true
+    });
+  }
+
 }

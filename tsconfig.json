@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "module": "esnext",
     "moduleResolution": "node",
-    "rootDir": "./src",
-    "paths": { "@angular/*": [ "../node_modules/@angular/*" ] },
+    "importHelpers": true,
+    "target": "es2015",
     "lib": [
-      "es2015",
+      "es2018",
       "dom"
     ],
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "paths": { "@angular/*": [ "../node_modules/@angular/*" ] },
     "skipLibCheck": true,
     "types": []
   }
